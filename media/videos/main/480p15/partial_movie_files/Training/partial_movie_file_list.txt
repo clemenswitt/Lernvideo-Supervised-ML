@@ -1,0 +1,7 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/3163782288_925056956_223132457.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/2201830969_2922598264_3506387937.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/2201830969_1565436559_1717204703.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/2201830969_18531769_418571667.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/2201830969_1549106691_2036244849.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/Training/2201830969_1054687365_6898895.mp4'
