@@ -141,10 +141,10 @@ def connect_point_to_inputs(point, inputs_group):
 def decrease_weights(perceptron):
     headline = Tex(r'Reduzierung der Gewichte', font_size = 35)
     x = Tex(r'$x$', font_size = 25)
-    w_x = Tex(r'$w_x$', font_size = 25)
+    w_x = Tex(r'$w_{x, neu}$', font_size = 25)
     w_x_alt = Tex(r'$w_{x, alt}$', font_size = 25)
     y = Tex(r'$y$', font_size = 25)
-    w_y = Tex(r'$w_y$', font_size = 25)
+    w_y = Tex(r'$w_{y, neu}$', font_size = 25)
     w_y_alt = Tex(r'$w_{y, alt}$', font_size = 25)
     alpha = Tex(r'$\alpha$', font_size = 25)
     equals = Tex(r'$=$', font_size = 25)
