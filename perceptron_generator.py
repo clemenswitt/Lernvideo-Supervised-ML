@@ -19,8 +19,8 @@ def create_perceptron_explaination(perceptron):
     return perceptron_sr, perceptron_label, perceptron_description
 
 def create_inputs_explaination(label_x, label_y):
-    in_x_sr = SurroundingRectangle(label_x, buff = MED_SMALL_BUFF, color = YELLOW)
-    in_y_sr = SurroundingRectangle(label_y, buff = MED_SMALL_BUFF, color = YELLOW)
+    in_x_sr = SurroundingRectangle(label_x, buff = MED_SMALL_BUFF + 0.05, color = YELLOW)
+    in_y_sr = SurroundingRectangle(label_y, buff = MED_SMALL_BUFF + 0.05, color = YELLOW)
     perceptron_inputs_label = Tex("Eingabewerte", font_size = 40, color = YELLOW).align_to(in_x_sr, LEFT + UP).shift(0.5 * UP + 0.75 * LEFT)
     perceptron_inputs_description = VGroup(in_x_sr, in_y_sr, perceptron_inputs_label)
     return in_x_sr, in_y_sr, perceptron_inputs_label, perceptron_inputs_description
@@ -128,10 +128,6 @@ def override_classification(classification, value):
     classification_value = Tex(value, font_size = 40, color = BLACK).move_to(classification_bg.get_center())
     return VGroup(classification_bg, classification_value)
 
-
-
-
-
 def highlight_point(point_group, point_number):
     point = point_group[point_number]
     c = Circle(radius = 0.25, fill_opacity = 0, color = Colors.blue_c.value).move_to(point.get_center())
@@ -141,3 +137,37 @@ def connect_point_to_inputs(point, inputs_group):
     line_x = DashedLine(point.get_critical_point(RIGHT), inputs_group[0].get_critical_point(LEFT), stroke_color = Colors.blue_c.value)
     line_y = DashedLine(point.get_critical_point(RIGHT), inputs_group[1].get_critical_point(LEFT), stroke_color = Colors.blue_c.value)
     return VGroup(line_x, line_y)
+
+def decrease_weights(perceptron):
+    headline = Tex(r'Reduzierung der Gewichte', font_size = 35)
+    x = Tex(r'$x$', font_size = 25)
+    w_x = Tex(r'$w_x$', font_size = 25)
+    w_x_alt = Tex(r'$w_{x, alt}$', font_size = 25)
+    y = Tex(r'$y$', font_size = 25)
+    w_y = Tex(r'$w_y$', font_size = 25)
+    w_y_alt = Tex(r'$w_{y, alt}$', font_size = 25)
+    alpha = Tex(r'$\alpha$', font_size = 25)
+    equals = Tex(r'$=$', font_size = 25)
+    cdot = Tex(r'$\cdot$', font_size = 25)
+    minus = Tex(r'$-$', font_size = 25)
+    
+    update_w_x = VGroup(w_x, equals, w_x_alt, minus, alpha, cdot, x).arrange(direction = RIGHT)
+    update_w_y = VGroup(w_y, equals.copy(), w_y_alt, minus.copy(), alpha.copy(), cdot.copy(), y).arrange(direction = RIGHT)
+
+    return VGroup(headline, update_w_x, update_w_y).arrange(direction = DOWN, center = True, buff = 0.4).move_to(perceptron.get_center()).shift(3 * UP)
+
+def inputs_to_rectangle_merge_into_formula(inputs, formula):
+    transformed_inputs = VGroup()
+    for i in range(2):
+        input_transformation = inputs[i][1].copy().move_to(formula[i + 1][6].get_center())
+        input_transformation_bg = BackgroundRectangle(input_transformation, color = Colors.blue_c.value, fill_opacity = 1, buff = SMALL_BUFF)
+        transformed_inputs.add(VGroup(input_transformation_bg, input_transformation))
+    return transformed_inputs
+
+def show_learning_rate_in_formula(rate, formula):
+    learning_rate_labels = VGroup()
+    for i in range(2):
+        label = Tex(rate, font_size = 30).move_to(formula[i + 1][4].get_center())
+        label_bg = BackgroundRectangle(label, color = Colors.gold_d.value, fill_opacity = 1, buff = SMALL_BUFF)
+        learning_rate_labels.add(VGroup(label_bg, label))
+    return learning_rate_labels

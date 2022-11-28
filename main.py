@@ -1,5 +1,4 @@
 from manim import *
-import numpy as np
 import axes, decision_boundary, points, class_labeling, perceptron_generator
 
 class Training(Scene):
@@ -90,12 +89,27 @@ class Training(Scene):
         # Initial classification
         classification_second = perceptron_generator.override_classification(classification, 1)
 
+        # Weight update
+        decrease_weights = perceptron_generator.decrease_weights(perceptron)
+        weights_calculated = perceptron_generator.override_weights(w_x, w_y, 0.03, 0.13)
+
+        # Third point (weights already updated)
+        # Initialise Inputs
+        inputs_third = perceptron_generator.override_inputs(label_x, label_y, 3.27, 2.68)
+        # Highlight point
+        point_highlight_third = perceptron_generator.highlight_point(point_group, 36)
+        # Point connection 
+        point_to_inputs_third = perceptron_generator.connect_point_to_inputs(point_highlight_third, inputs_third)
+        # Initial sum
+        sum_third = perceptron_generator.override_sum(sum, 0.45)
+        # Initial classification
+        classification_third = perceptron_generator.override_classification(classification, 0)
+
+
 
         # Static test
-        #self.add(title, plane, point_group, point_group_class_colored, class_labels, perceptron, sf)
+        #self.add(title, plane, point_group, point_group_class_colored, class_labels, perceptron, decrease_weights)
 
-        
-        
         
         
         
@@ -123,7 +137,7 @@ class Training(Scene):
         # Perceptron
         self.play(Write(perceptron))
         self.wait(1)
-
+        
         # Perceptron hightlight-box + label
         self.play(Write(perceptron_sr), Write(perceptron_label))
         self.wait(1)
@@ -177,6 +191,11 @@ class Training(Scene):
         for line in perceptron_learning_rate_description:
             self.play(Write(line))
             self.wait(1)
+        self.play(FadeOut(perceptron_learning_rate_description[0]), FadeOut(perceptron_learning_rate_description[1]))
+
+        # Show perceptron learning rule again
+        self.play(FadeIn(perceptron_learning_rule[0]), FadeIn(perceptron_learning_rule[1]), FadeIn(perceptron_learning_rule[2]), FadeIn(perceptron_learning_rule[3]))
+        self.wait(1)
 
         # Initialise weights
         self.play(Write(weights_initial))
@@ -194,10 +213,11 @@ class Training(Scene):
         self.wait(0.5)
         self.play(Write(classification_initial))
         self.wait(1)
-        self.play(Circumscribe(classification_initial, buff = MED_SMALL_BUFF, color = GREEN))
+        self.play(Circumscribe(classification_initial, buff = SMALL_BUFF, color = GREEN))
         self.wait(2)
         self.play(Unwrite(point_highlight_initial), Unwrite(point_to_inputs_initial[0]), Unwrite(point_to_inputs_initial[1]), Unwrite(inputs_initial[0]), Unwrite(inputs_initial[1]), Unwrite(sum_initial), Unwrite(classification_initial), run_time = 0.5)
         self.wait(1)
+        
 
         # Highlight second point + conncect point to inputs + second sum + second prediction
         self.play(Write(point_highlight_second))
@@ -211,7 +231,57 @@ class Training(Scene):
         self.wait(0.5)
         self.play(Write(classification_second))
         self.wait(1)
-        self.play(Circumscribe(classification_second, buff = MED_SMALL_BUFF, color = RED))
+        self.play(Circumscribe(classification_second, buff = SMALL_BUFF, color = RED))
         self.wait(2)
-        self.play(Unwrite(point_highlight_second), Unwrite(point_to_inputs_second[0]), Unwrite(point_to_inputs_second[1]), Unwrite(inputs_second[0]), Unwrite(inputs_second[1]), Unwrite(sum_second), Unwrite(classification_second), run_time = 0.5)
+        self.play(Unwrite(point_highlight_second), Unwrite(point_to_inputs_second[0]), Unwrite(point_to_inputs_second[1]), Unwrite(sum_second), Unwrite(classification_second), run_time = 0.5)
         self.wait(0.5)
+
+        # Show weight decrease formulas
+        self.play(FadeOut(perceptron_learning_rule[0]), FadeOut(perceptron_learning_rule[1]), FadeOut(perceptron_learning_rule[2]), FadeOut(perceptron_learning_rule[3]), run_time = 0.5)
+        self.play(Write(decrease_weights[0]), Write(decrease_weights[1]), Write(decrease_weights[2]))
+        self.wait(1)
+
+        # Move current weights into decrease_weights formula
+        self.bring_to_front(weights_initial) # Avoid overlapping in formula
+        self.play(weights_initial[0].animate.move_to(decrease_weights[1][2].get_center()), weights_initial[1].animate.move_to(decrease_weights[2][2].get_center()))
+        self.wait(1)
+        self.remove(inputs_initial) # initial inputs have not been removed previously
+        
+        # Transform circular inputs into rectangular shapes & move them into decrease_weights formula
+        transformed_inputs = perceptron_generator.inputs_to_rectangle_merge_into_formula(inputs_second, decrease_weights)
+        self.play(ReplacementTransform(inputs_second, transformed_inputs))
+        
+        self.wait(1)
+
+        learning_rate_labels = perceptron_generator.show_learning_rate_in_formula(0.1, decrease_weights)
+        self.play(Write(learning_rate_labels))
+        self.wait(1)
+
+        for i in range(len(weights_calculated)):
+            weights_calculated[i].move_to(decrease_weights[i + 1][0].get_center())
+        
+        self.play(Write(weights_calculated[0]), Write(weights_calculated[1]))
+        self.wait(1)
+        self.play(FadeOut(weights_initial[0]), FadeOut(weights_initial[1]), FadeOut(transformed_inputs[0]), FadeOut(transformed_inputs[1]), FadeOut(learning_rate_labels[0]), FadeOut(learning_rate_labels[1]))
+        self.wait(1)
+
+        self.play(weights_calculated[0].animate.move_to(w_x.get_center()), weights_calculated[1].animate.move_to(w_y.get_center()))
+        self.wait(1)
+
+
+        # Highlight third point + conncect point to inputs + third sum + third prediction
+        self.play(Write(point_highlight_third))
+        self.wait(0.5)
+        self.play(Write(point_to_inputs_third[0]), Write(point_to_inputs_third[1]), run_time = 0.5)
+        self.play(Write(inputs_third[0]), Write(inputs_third[1]))
+        self.wait(0.5)
+        self.play(Write(sum_third))
+        self.wait(0.5)
+        self.play(Circumscribe(act_func, buff = MED_SMALL_BUFF))
+        self.wait(0.5)
+        self.play(Write(classification_third))
+        self.wait(1)
+        self.play(Circumscribe(classification_third, buff = SMALL_BUFF, color = GREEN))
+        self.wait(2)
+        #self.play(Unwrite(point_highlight_third), Unwrite(point_to_inputs_third[0]), Unwrite(point_to_inputs_third[1]), Unwrite(sum_third), Unwrite(classification_third), run_time = 0.5)
+        #self.wait(0.5)
