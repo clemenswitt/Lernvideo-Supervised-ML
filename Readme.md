@@ -1,2 +1,2 @@
-# Lernvideo -- Supervised Machine Learning
+# Lernvideo - Supervised Machine Learning
 
