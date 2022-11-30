@@ -136,7 +136,7 @@ class Training(Scene):
         
         # Perceptron
         self.play(Write(perceptron))
-        self.wait(1)
+        self.wait(2)
         
         # Perceptron hightlight-box + label
         self.play(Write(perceptron_sr), Write(perceptron_label))
@@ -170,7 +170,7 @@ class Training(Scene):
 
         # Step-function
         self.play(Write(sf[0]), Write(sf[1]), Write(sf[2]))
-        self.wait(1)
+        self.wait(3)
         self.play(FadeOut(act_func_sr), FadeOut(perceptron_act_func_label), FadeOut(sf[0]), FadeOut(sf[1]), FadeOut(sf[2]), run_time = 0.5)
         self.wait(1)
 
@@ -185,12 +185,12 @@ class Training(Scene):
             self.play(Write(line))
             self.wait(1)
         self.play(FadeOut(perceptron_learning_rule[0]), FadeOut(perceptron_learning_rule[1]), FadeOut(perceptron_learning_rule[2]), FadeOut(perceptron_learning_rule[3]), run_time = 0.5)
-        self.wait(1)
+        self.wait(2)
 
         # Learning rate
         for line in perceptron_learning_rate_description:
             self.play(Write(line))
-            self.wait(1)
+            self.wait(2)
         self.play(FadeOut(perceptron_learning_rate_description[0]), FadeOut(perceptron_learning_rate_description[1]))
 
         # Show perceptron learning rule again
@@ -216,7 +216,7 @@ class Training(Scene):
         self.play(Circumscribe(classification_initial, buff = SMALL_BUFF, color = GREEN))
         self.wait(2)
         self.play(Unwrite(point_highlight_initial), Unwrite(point_to_inputs_initial[0]), Unwrite(point_to_inputs_initial[1]), Unwrite(inputs_initial[0]), Unwrite(inputs_initial[1]), Unwrite(sum_initial), Unwrite(classification_initial), run_time = 0.5)
-        self.wait(1)
+        self.wait(2)
         
 
         # Highlight second point + conncect point to inputs + second sum + second prediction
@@ -239,34 +239,35 @@ class Training(Scene):
         # Show weight decrease formulas
         self.play(FadeOut(perceptron_learning_rule[0]), FadeOut(perceptron_learning_rule[1]), FadeOut(perceptron_learning_rule[2]), FadeOut(perceptron_learning_rule[3]), run_time = 0.5)
         self.play(Write(decrease_weights[0]), Write(decrease_weights[1]), Write(decrease_weights[2]))
-        self.wait(1)
+        self.wait(2)
 
         # Move current weights into decrease_weights formula
         self.bring_to_front(weights_initial) # Avoid overlapping in formula
         self.play(weights_initial[0].animate.move_to(decrease_weights[1][2].get_center()), weights_initial[1].animate.move_to(decrease_weights[2][2].get_center()))
-        self.wait(1)
+        self.wait(2)
         self.remove(inputs_initial) # initial inputs have not been removed previously
         
         # Transform circular inputs into rectangular shapes & move them into decrease_weights formula
         transformed_inputs = perceptron_generator.inputs_to_rectangle_merge_into_formula(inputs_second, decrease_weights)
         self.play(ReplacementTransform(inputs_second, transformed_inputs))
-        
-        self.wait(1)
+        self.wait(2)
 
+        # Show learning rate in formula
         learning_rate_labels = perceptron_generator.show_learning_rate_in_formula(0.1, decrease_weights)
-        self.play(Write(learning_rate_labels))
-        self.wait(1)
+        self.play(Write(learning_rate_labels[0]), Write(learning_rate_labels[1]))
+        self.wait(2)
 
+        # Show new calculated weights in formula
         for i in range(len(weights_calculated)):
             weights_calculated[i].move_to(decrease_weights[i + 1][0].get_center())
-        
         self.play(Write(weights_calculated[0]), Write(weights_calculated[1]))
         self.wait(1)
         self.play(FadeOut(weights_initial[0]), FadeOut(weights_initial[1]), FadeOut(transformed_inputs[0]), FadeOut(transformed_inputs[1]), FadeOut(learning_rate_labels[0]), FadeOut(learning_rate_labels[1]))
         self.wait(1)
 
+        # Move new weights to perceptron 
         self.play(weights_calculated[0].animate.move_to(w_x.get_center()), weights_calculated[1].animate.move_to(w_y.get_center()))
-        self.wait(1)
+        self.wait(2)
 
 
         # Highlight third point + conncect point to inputs + third sum + third prediction
