@@ -1,0 +1,13 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/3163782288_2001203797_223132457.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_4239122458_1518649369.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_1067632646_3259610522.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_2391449061_887038666.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_736723729_4100902967.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_2080956316_1718691736.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_2944330065_3954327707.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_255218124_2523095077.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_2923631791_1105420907.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_3116329835_2882567340.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_2716207900_969052672.mp4'
+file 'file:/Users/admin/Library/Mobile Documents/com~apple~CloudDocs/Uni/LA/WS 2022-23/DDI-HS/Lernvideo Fachthema/LernvideoML/media/videos/main/480p15/partial_movie_files/SupervisedML/2201830969_226912297_3020044815.mp4'

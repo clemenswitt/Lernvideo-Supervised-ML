@@ -1,6 +1,6 @@
 from manim import *
 from manim.utils.color import Colors
-import ml_process, axes, decision_boundary, points, class_labeling, perceptron_generator
+import ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator
 
 class MLDefinition(Scene):
     def construct(self):
@@ -44,6 +44,44 @@ class MLDefinition(Scene):
         self.play(FadeIn(prediction[1]), FadeIn(prediction[2]))
         self.play(FadeIn(prediction[3]), FadeIn(prediction[4]))
         self.play(FadeOut(prediction))
+
+class SupervisedML(Scene):
+    def construct(self):
+        #Elements
+        title = Tex(r'Was ist ', r'Supervised ' , r'Machine Learning?', font_size = 70).to_edge(UP).to_edge(LEFT)
+        title[1].set_color(Colors.green_c.value)
+
+        line1 = Tex(r'$\rightarrow$ ', r'Trainingsdaten sind beschriftet', r' -- \textit{gelabelt}', font_size = 40).to_edge(LEFT).shift(2 * UP)
+        line1[2].set_color(Colors.red_c.value)
+        line2 = Tex(r'$\rightarrow$ ', r'Ziel der Vorhersage: ', r'Labels ', r'unbeschrifteter Daten ', r'vorhersagen', font_size = 40).align_to(line1, DOWN).to_edge(LEFT).shift(0.75 * DOWN)
+        line2[3].set_color(Colors.green_c.value)
+
+        regression_learning_graphics = supervised_ml.regression_learning().to_edge(LEFT).shift(0.8 * DOWN)
+        regression_learning_label = Tex(r'Regressionsprobleme', font_size = 35).move_to(regression_learning_graphics.get_center()).shift(1.5 * DOWN)
+        regression_learning = Group(regression_learning_graphics, regression_learning_label)
+
+        classification_learning_graphics = supervised_ml.classification_learning().to_edge(RIGHT)
+        classification_learning_label = Tex(r'Klassifikationsprobleme', font_size = 35).move_to(classification_learning_graphics.get_center()).shift(1.3 * DOWN)
+        classification_learning = Group(classification_learning_graphics, classification_learning_label).align_to(regression_learning, DOWN)
+
+        #Static test
+        #self.add(title, line1, line2, regression_learning, classification_learning)
+
+        #Animations
+        self.play(Write(title))
+        self.play(Write(line1[0]), Write(line1[1]))
+        self.play(Write(line1[2]))
+        self.play(Write(line2))
+        self.play(FadeIn(regression_learning[0][0]))
+        self.play(FadeIn(regression_learning[0][1]))
+        self.play(FadeIn(regression_learning[0][2]))
+        self.play(FadeIn(regression_learning[1]))
+        self.play(FadeIn(classification_learning[0][0]))
+        self.play(FadeIn(classification_learning[0][1]), FadeIn(classification_learning[0][2]))
+        self.play(FadeIn(classification_learning[0][3]), FadeIn(classification_learning[0][4]))
+        self.play(FadeIn(classification_learning[1]))
+
+
 
 
 class Training(Scene):
