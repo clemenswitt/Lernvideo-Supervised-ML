@@ -1,5 +1,50 @@
 from manim import *
-import axes, decision_boundary, points, class_labeling, perceptron_generator
+from manim.utils.color import Colors
+import ml_process, axes, decision_boundary, points, class_labeling, perceptron_generator
+
+class MLDefinition(Scene):
+    def construct(self):
+        #Elements
+        title = Tex("Was ist Machine Learning?", font_size = 70).to_edge(UP).to_edge(LEFT)
+
+        definition = Tex(r'Machine Learning beschreibt die künstliche \\ Generierung von Wissen aus Erfahrung.', font_size = 40)
+        definition_easy = Tex(r'Machine Learning beschreibt das ', r'Nutzen von Daten ', r'\\zur ', r'Beantwortung von Fragen.', font_size = 40).set_color_by_tex('Nutzen von Daten', Colors.green_c.value).set_color_by_tex('Beantwortung von Fragen.', RED)
+        
+        using_data = Tex('Nutzen von Daten', font_size = 45).set_color(Colors.green_c.value).to_corner(LEFT + UP).shift(2 * DOWN)
+        answer_questions = Tex('Beantwortung von Fragen', font_size = 45).set_color(Colors.red_c.value).to_corner(RIGHT + UP).shift(2 * DOWN)
+
+        using_data_answer_questions = VGroup(using_data, answer_questions)
+
+        down_arrow_training = Tex(r'$\downarrow$', font_size = 45).move_to(using_data.get_center()).shift(0.75 * DOWN)
+        training = Tex('Training', font_size = 45).move_to(down_arrow_training.get_center()).shift(0.75 * DOWN)
+        training_group = VGroup(down_arrow_training, training)
+        down_arrow_prediction = Tex(r'$\downarrow$', font_size = 45).move_to(answer_questions.get_center()).shift(0.75 * DOWN)
+        prediction = Tex('Vorhersage', font_size = 45).move_to(down_arrow_prediction.get_center()).shift(0.75 * DOWN)
+        prediction_group = VGroup(down_arrow_prediction, prediction)
+        training_prediction_group = VGroup(training_group, prediction_group)
+
+        model_creation = ml_process.model_creation()
+
+        prediction = ml_process.prediction()
+
+        # Static test
+        #self.add(title, prediction)
+
+        #Animations
+        self.play(Write(title))
+        self.play(Write(definition_easy))
+        self.play(ReplacementTransform(definition_easy, using_data_answer_questions))
+        self.play(Write(training_prediction_group))
+        self.play(FadeOut(using_data_answer_questions), FadeOut(training_prediction_group))
+        self.play(FadeIn(model_creation[0]))
+        self.play(FadeIn(model_creation[1]), FadeIn(model_creation[2]))
+        self.play(FadeIn(model_creation[3]), FadeIn(model_creation[4]))
+        self.play(FadeOut(model_creation))
+        self.play(FadeIn(prediction[0]))
+        self.play(FadeIn(prediction[1]), FadeIn(prediction[2]))
+        self.play(FadeIn(prediction[3]), FadeIn(prediction[4]))
+        self.play(FadeOut(prediction))
+
 
 class Training(Scene):
     def construct(self):
@@ -110,9 +155,6 @@ class Training(Scene):
         # Static test
         #self.add(title, plane, point_group, point_group_class_colored, class_labels, perceptron, decrease_weights)
 
-        
-        
-        
         #Animations
         self.play(Write(title))
 
