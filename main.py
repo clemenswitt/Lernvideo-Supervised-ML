@@ -390,8 +390,18 @@ class Testing(Scene):
 
         split_tables = testing.data_table_split().shift(0.3 * DOWN)
 
+        model_creation = ml_process.model_creation().scale(0.75).shift(0.5 * DOWN)
+
+        model_test = ml_process.prediction().scale(0.75).shift(0.5 * DOWN)
+
+        validation_table = testing.validation().shift(2 * DOWN)
+
+        accuracy = Tex(r'Genauigkeit des Modells: \\', r'75\%', font_size = 50)
+        accuracy[1].set_color(Colors.blue_c.value)
+        accuracy.shift(2.5 * RIGHT)
+
         # Static test
-        # self.add(title, split_tables)
+        # self.add(title, validation_table)
 
         # Animation
         self.play(Write(big_title))
@@ -403,3 +413,23 @@ class Testing(Scene):
         self.play(FadeOut(data_diagram_table[0]), FadeOut(data_diagram_table[1]))
         self.play(data_diagram_table[2].animate.move_to(ORIGIN + 0.5 * DOWN))
         self.play(ReplacementTransform(data_diagram_table[2], split_tables))
+        self.play(FadeOut(split_tables[1]))
+        self.play(split_tables[0].animate.to_edge(LEFT))
+        self.play(FadeIn(model_creation[0].shift(RIGHT)))
+        self.play(ShrinkToCenter(split_tables[0]), FadeTransformPieces(split_tables[0], model_creation[0]))
+        self.play(model_creation[0].animate.shift(LEFT))
+        self.play(FadeIn(model_creation[1]), FadeIn(model_creation[2]))
+        self.play(FadeIn(model_creation[3]), FadeIn(model_creation[4]))
+        self.play(FadeOut(model_creation[0]), FadeOut(model_creation[1]), FadeOut(model_creation[2]), FadeOut(model_creation[3]))
+        self.play(ReplacementTransform(model_creation[4], model_test[2]))
+        self.play(model_test[2].animate.shift(RIGHT), FadeIn(model_test[0].shift(RIGHT)), FadeIn(model_test[1].shift(RIGHT)))
+        self.play(FadeIn(split_tables[1].to_edge(LEFT).shift(DOWN)))
+        self.play(ShrinkToCenter(split_tables[1]), FadeTransformPieces(split_tables[1], model_test[0]))
+        self.play(model_test[0].animate.shift(LEFT), model_test[1].animate.shift(LEFT), model_test[2].animate.shift(LEFT))
+        self.play(FadeIn(model_test[3]), FadeIn(model_test[4]))
+        self.play(model_test.animate.shift(1.5 * UP))
+        self.play(FadeIn(validation_table[0].shift(0.5 * RIGHT)))
+        self.play(FadeOut(model_test[0]), FadeOut(model_test[1]), FadeOut(model_test[3]))
+        self.play(validation_table[0].animate.shift(0.5 * LEFT), FadeIn(validation_table[1]), model_test[4].animate.move_to(validation_table[1].get_center()).fade(1))
+        self.play(model_test[2].animate.shift(3.5 * LEFT), validation_table.animate.shift(3.5 * LEFT))
+        self.play(Write(accuracy))
