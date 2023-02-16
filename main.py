@@ -1,6 +1,36 @@
 from manim import *
 from manim.utils.color import Colors
-import center_title, ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator, testing
+import bullet_points, center_title, ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator, testing
+
+class Intro(Scene):
+    def construct(self):
+        ai_symbol = ImageMobject('assets/images/ai.png').scale(0.3).shift(0.7 * UP)
+        title = Tex(r'KI ', r'verstehen', font_size = 50).shift(1.7 * DOWN)
+
+        headline = Tex('Supervised Machine Learning', font_size = 70).to_edge(UP).to_edge(LEFT)
+
+        bullet_point_list = bullet_points.create_bullet_point_list([
+            r'Wiederholung: Begriff \textit{Machine Learning}', 
+            r'Was ist \textit{Supervised} Machine Learning?', 
+            r'Wie können Maschinen trainiert werden?', 
+            r'Wie werden Künstliche Intelligenzen getestet?'
+        ]).next_to(headline, DOWN).to_edge(LEFT).shift(0.5 * DOWN)
+
+        # Static Test
+        # self.add(headline, bullet_point_list)
+
+        # Animations
+        self.play(FadeIn(ai_symbol))
+        self.play(Write(title))
+        #self.play(ShowPassingFlash(Underline(title[1]).set_color(Colors.red_c.value)))
+        self.play(ApplyWave(title[1], amplitude = 0.1), ShowPassingFlash(Underline(title[1]).set_color(Colors.red_c.value)))
+        self.play(FadeOut(title))
+        self.play(ai_symbol.animate.shift(4.5 * RIGHT + 2.5 * DOWN))
+        self.play(Write(headline))
+        self.play(Write(bullet_point_list[0]))
+        self.play(Write(bullet_point_list[1]))
+        self.play(Write(bullet_point_list[2]))
+        self.play(Write(bullet_point_list[3]))
 
 class MLDefinition(Scene):
     def construct(self):
@@ -433,3 +463,51 @@ class Testing(Scene):
         self.play(validation_table[0].animate.shift(0.5 * LEFT), FadeIn(validation_table[1]), model_test[4].animate.move_to(validation_table[1].get_center()).fade(1))
         self.play(model_test[2].animate.shift(3.5 * LEFT), validation_table.animate.shift(3.5 * LEFT))
         self.play(Write(accuracy))
+
+class Recap(Scene):
+    def construct(self):
+        big_title = center_title.title(r'Zusammenfassung')
+        title = Tex('Was haben wir in diesem Video erarbeitet?', font_size = 60).to_edge(UP).to_edge(LEFT)
+
+        learned_list = bullet_points.create_bullet_point_list([
+            r'Begriff \textit{Supervised Machine Learning}',
+            r'Klassifikations- \& Regressionsprobleme',
+            r'Ablauf überwachter Trainingsprozesse',
+            r'Verifizierung von KI-Modellen'
+        ]).next_to(title, DOWN).to_edge(LEFT).shift(0.25 * DOWN)
+
+        regression_learning_graphics = supervised_ml.regression_learning().to_edge(LEFT).shift(RIGHT + 0.8 * DOWN).scale(0.75)
+        regression_learning_label = Tex(r'Regressionsprobleme', font_size = 35).move_to(regression_learning_graphics.get_center()).shift(1.2 * DOWN)
+        regression_learning = Group(regression_learning_graphics, regression_learning_label)
+
+        classification_learning_graphics = supervised_ml.classification_learning().to_edge(RIGHT).shift(LEFT).scale(0.75)
+        classification_learning_label = Tex(r'Klassifikationsprobleme', font_size = 35).move_to(classification_learning_graphics.get_center()).shift(1.2 * DOWN)
+        classification_learning = Group(classification_learning_graphics, classification_learning_label).align_to(regression_learning, DOWN)
+
+        model_creation = ml_process.model_creation()
+        model_prediciton = ml_process.prediction()
+
+        perceptron, label_x, label_y, w_x, w_y, sum, act_func, classification = perceptron_generator.generate_perceptron()
+        perceptron.move_to(ORIGIN).shift(2 * DOWN)
+
+        validation_table = testing.validation().to_edge(RIGHT).shift(DOWN)
+        accuracy = Tex(r'Genauigkeit: ', r'75\%', font_size = 35).next_to(validation_table, DOWN)
+        accuracy[1].set_color(Colors.blue_c.value)
+
+        # Static Test
+        # self.add(title, learned_list, validation_table, accuracy)
+
+        # Animations
+        self.play(Write(big_title))
+        self.play(ReplacementTransform(big_title, title))
+        self.play(Write(learned_list[0]))
+        self.play(Write(learned_list[1]))
+        self.play(FadeIn(regression_learning), FadeIn(classification_learning))
+        self.play(FadeOut(regression_learning), FadeOut(classification_learning))
+        self.play(Write(learned_list[2]))
+        self.play(FadeIn(perceptron))
+        self.play(FadeOut(perceptron))
+        self.play(Write(learned_list[3]))
+        self.play(FadeIn(validation_table[0]))
+        self.play(FadeIn(validation_table[1]))
+        self.play(FadeIn(accuracy))
