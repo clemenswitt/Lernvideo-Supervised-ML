@@ -1,12 +1,11 @@
 from manim import *
 from manim.utils.color import Colors
-import center_title, ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator
+import center_title, ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator, testing
 
 class MLDefinition(Scene):
     def construct(self):
         #Elements
         title_big = center_title.title('Was ist Machine Learning?')
-
         title = Tex('Was ist Machine Learning?', font_size = 70).to_edge(UP).to_edge(LEFT)
 
         definition = Tex(r'Machine Learning beschreibt die künstliche \\ Generierung von Wissen aus Erfahrung.', font_size = 40)
@@ -369,3 +368,38 @@ class Training(Scene):
         self.wait(2)
         #self.play(Unwrite(point_highlight_third), Unwrite(point_to_inputs_third[0]), Unwrite(point_to_inputs_third[1]), Unwrite(sum_third), Unwrite(classification_third), run_time = 0.5)
         #self.wait(0.5)
+
+class Testing(Scene):
+    def construct(self):
+        big_title = center_title.title(r'Wie werden Modelle getestet?')
+        title = Tex('Wie werden Modelle getestet?', font_size = 70).to_edge(UP).to_edge(LEFT)
+
+        plane = axes.generate_axes()
+        class_seperator_line = decision_boundary.generate_class_seperator_line(plane)
+        point_plane = points.generate_point_plane(plane)
+        point_group = points.create_point_group(point_plane, "w")
+        point_group_class_colored = points.create_point_group(point_plane, "c")
+        class_labels = class_labeling.generate_class_labels(point_plane)
+        data_diagram = VGroup(plane, class_seperator_line, point_group, point_group_class_colored, class_labels)
+
+        arrow = Tex(r'$\rightarrow$', font_size = 100).align_to(data_diagram, RIGHT).shift(1.5 * RIGHT + 0.5 * DOWN)
+
+        data_table = testing.data_table().align_to(arrow, LEFT).shift(1.8 * RIGHT + 0.5 * DOWN)
+
+        data_diagram_table = VGroup(data_diagram, arrow, data_table).move_to(ORIGIN).shift(0.5 * DOWN + 0.2 * LEFT)
+
+        split_tables = testing.data_table_split().shift(0.3 * DOWN)
+
+        # Static test
+        # self.add(title, split_tables)
+
+        # Animation
+        self.play(Write(big_title))
+        self.play(ReplacementTransform(big_title, title))
+        self.play(FadeIn(data_diagram_table[0]))
+        self.play(FadeIn(data_diagram_table[1]), FadeIn(data_diagram_table[2]))
+        self.play(Circumscribe(data_diagram_table[0][2][10]))
+        self.play(Circumscribe(data_diagram_table[2].get_rows()[9], buff = MED_SMALL_BUFF))
+        self.play(FadeOut(data_diagram_table[0]), FadeOut(data_diagram_table[1]))
+        self.play(data_diagram_table[2].animate.move_to(ORIGIN + 0.5 * DOWN))
+        self.play(ReplacementTransform(data_diagram_table[2], split_tables))
