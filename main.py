@@ -1,11 +1,13 @@
 from manim import *
 from manim.utils.color import Colors
-import ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator
+import center_title, ml_process, supervised_ml, axes, decision_boundary, points, class_labeling, perceptron_generator
 
 class MLDefinition(Scene):
     def construct(self):
         #Elements
-        title = Tex("Was ist Machine Learning?", font_size = 70).to_edge(UP).to_edge(LEFT)
+        title_big = center_title.title('Was ist Machine Learning?')
+
+        title = Tex('Was ist Machine Learning?', font_size = 70).to_edge(UP).to_edge(LEFT)
 
         definition = Tex(r'Machine Learning beschreibt die künstliche \\ Generierung von Wissen aus Erfahrung.', font_size = 40)
         definition_easy = Tex(r'Machine Learning beschreibt das ', r'Nutzen von Daten ', r'\\zur ', r'Beantwortung von Fragen.', font_size = 40).set_color_by_tex('Nutzen von Daten', Colors.green_c.value).set_color_by_tex('Beantwortung von Fragen.', RED)
@@ -28,11 +30,13 @@ class MLDefinition(Scene):
         prediction = ml_process.prediction()
 
         # Static test
-        #self.add(title, prediction)
+        # self.add(title_big)
 
         #Animations
-        self.play(Write(title))
-        self.play(Write(definition_easy))
+        self.play(Write(title_big))
+        self.play(ReplacementTransform(title_big, title))
+        self.play(Write(definition))
+        self.play(FadeOut(definition), Write(definition_easy))
         self.play(ReplacementTransform(definition_easy, using_data_answer_questions))
         self.play(Write(training_prediction_group))
         self.play(FadeOut(using_data_answer_questions), FadeOut(training_prediction_group))
@@ -48,6 +52,7 @@ class MLDefinition(Scene):
 class SupervisedML(Scene):
     def construct(self):
         #Elements
+        title_big = center_title.title(r'Was ist \textit{Supervised} \\ Machine Learning?')
         title = Tex(r'Was ist ', r'Supervised ' , r'Machine Learning?', font_size = 70).to_edge(UP).to_edge(LEFT)
         title[1].set_color(Colors.green_c.value)
 
@@ -65,10 +70,11 @@ class SupervisedML(Scene):
         classification_learning = Group(classification_learning_graphics, classification_learning_label).align_to(regression_learning, DOWN)
 
         #Static test
-        #self.add(title, line1, line2, regression_learning, classification_learning)
+        # self.add(title_big)
 
         #Animations
-        self.play(Write(title))
+        self.play(Write(title_big))
+        self.play(ReplacementTransform(title_big, title))
         self.play(Write(line1[0]), Write(line1[1]))
         self.play(Write(line1[2]))
         self.play(Write(line2))
@@ -80,9 +86,6 @@ class SupervisedML(Scene):
         self.play(FadeIn(classification_learning[0][1]), FadeIn(classification_learning[0][2]))
         self.play(FadeIn(classification_learning[0][3]), FadeIn(classification_learning[0][4]))
         self.play(FadeIn(classification_learning[1]))
-
-
-
 
 class Training(Scene):
     def construct(self):
